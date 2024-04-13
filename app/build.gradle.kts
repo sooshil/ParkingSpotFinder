@@ -71,7 +71,7 @@ dependencies {
     implementation (libs.hilt.android)
     ksp(libs.dagger.hilt.android.compiler)
     implementation (libs.androidx.hilt.lifecycle.viewmodel)
-//    ksp(libs.androidx.hilt.compiler)
+//    ksp(libs.androidx.hilt.compiler) This will break if uncommented.
     implementation (libs.androidx.hilt.hilt.navigation.compose)
 
     // Room

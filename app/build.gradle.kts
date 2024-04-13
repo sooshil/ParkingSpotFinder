@@ -68,11 +68,11 @@ dependencies {
     implementation (libs.play.services.maps)
 
     //Dagger - Hilt
-//    implementation (libs.hilt.android)
-//    ksp(libs.dagger.hilt.android.compiler)
-//    implementation (libs.androidx.hilt.lifecycle.viewmodel)
+    implementation (libs.hilt.android)
+    ksp(libs.dagger.hilt.android.compiler)
+    implementation (libs.androidx.hilt.lifecycle.viewmodel)
 //    ksp(libs.androidx.hilt.compiler)
-//    implementation (libs.androidx.hilt.hilt.navigation.compose)
+    implementation (libs.androidx.hilt.hilt.navigation.compose)
 
     // Room
     implementation (libs.androidx.room.runtime)

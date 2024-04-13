@@ -2,7 +2,7 @@ package com.sukajee.parkingspotfinder.presentation
 
 object MapStyle {
 
-    val style = """
+    const val STYLE = """
             [
                 {
                     "featureType": "all",

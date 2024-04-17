@@ -11,9 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapUiSettings
+import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.MarkerState
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun MapScreen(
@@ -45,6 +49,31 @@ fun MapScreen(
                     MapsEvent.OnMapLongClick(it)
                 )
             }
-        )
+        ) {
+            state.parkingSpots.forEachIndexed { index, parkingSpot ->
+                Marker(
+                    state = MarkerState(
+                        position = LatLng(
+                            parkingSpot.latitude,
+                            parkingSpot.longitude
+                        )
+                    ),
+                    title = "Parking Spot (${index + 1})",
+                    snippet = "Long click to delete",
+                    onInfoWindowLongClick = {
+                        viewModel.onEvent(
+                            MapsEvent.OnInfoWindowLongClick(parkingSpot)
+                        )
+                    },
+                    onClick = {
+                        it.showInfoWindow()
+                        true
+                    },
+                    icon = BitmapDescriptorFactory.defaultMarker(
+                        BitmapDescriptorFactory.HUE_GREEN
+                    )
+                )
+            }
+        }
     }
 }

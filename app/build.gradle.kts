@@ -1,7 +1,9 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.google.devtools.ksp)
+    id ("com.android.application")
+    id ("org.jetbrains.kotlin.android")
+    id ("kotlin-kapt")
+    id ("kotlin-parcelize")
+    id ("com.google.dagger.hilt.android")
 }
 
 android {
@@ -41,7 +43,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.5"
+        kotlinCompilerExtensionVersion = "1.5.11"
     }
     packaging {
         resources {
@@ -52,42 +54,44 @@ android {
 
 dependencies {
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
+    implementation ("androidx.core:core-ktx:1.12.0")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+    implementation ("androidx.activity:activity-compose:1.8.2")
 
-    implementation(libs.androidx.material.icons.extended)
-    implementation (libs.maps.compose)
+    implementation (platform("androidx.compose:compose-bom:2024.04.00"))
+    implementation ("androidx.compose.ui:ui")
+    implementation ("androidx.compose.ui:ui-graphics")
+    implementation ("androidx.compose.ui:ui-tooling-preview")
+    implementation ("androidx.compose.material3:material3")
+    implementation ("androidx.compose.ui:ui-tooling-preview")
+    testImplementation ("junit:junit:4.13.2")
+    androidTestImplementation ("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation ("androidx.compose.ui:ui-test-junit4:1.6.5")
+    debugImplementation ("androidx.compose.ui:ui-tooling")
+
+    // Compose dependencies
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation ("androidx.compose.material:material-icons-extended:1.6.5")
+    implementation ("com.google.maps.android:maps-compose:4.3.3")
 
     // Google Maps
-    implementation (libs.play.services.maps)
+    implementation ("com.google.android.gms:play-services-maps:18.2.0")
 
     //Dagger - Hilt
-    implementation (libs.hilt.android)
-    ksp(libs.dagger.hilt.android.compiler)
-    implementation (libs.androidx.hilt.lifecycle.viewmodel)
-//    ksp(libs.androidx.hilt.compiler) This will break if uncommented.
-    implementation (libs.androidx.hilt.hilt.navigation.compose)
+    implementation ("com.google.dagger:hilt-android:2.51.1")
+    kapt ("com.google.dagger:hilt-compiler:2.51.1")
 
     // Room
-    implementation (libs.androidx.room.runtime)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-    ksp(libs.androidx.room.compiler)
+    implementation ("androidx.room:room-runtime:2.6.1")
+    annotationProcessor("androidx.room:room-compiler:2.6.1")
+    kapt ("androidx.room:room-compiler:2.6.1")
+    implementation ("androidx.room:room-ktx:2.6.1")
 
     // Kotlin Extensions and Coroutines support for Room
-    implementation (libs.androidx.room.ktx)
+    implementation ("androidx.room:room-ktx:2.6.1")
+}
 
-
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
+kapt {
+    correctErrorTypes = true
 }
